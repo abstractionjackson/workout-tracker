@@ -1,0 +1,14 @@
+# Flask
+/__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Flask-SQLAlchemy
+/migrations/
+
+# DB
+*.sqlite*
+
+# Static
+workout_tracker/static/pico-2

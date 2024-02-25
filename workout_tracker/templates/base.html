@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0"
+    />
+    <title>{% block title %}{% endblock %} - Workout Tracker</title>
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='pico-2/css/pico.min.css') }}"
+    />
+  </head>
+  <body>
+    <header class="container">
+      <nav>
+        <h1>
+          <a
+            href="{{ url_for('index') }}"
+            style="text-decoration: none; color: #2d3138"
+          >
+            <span>Workout Tracker</span>
+          </a>
+        </h1>
+        <ul>
+          {% if g.user %}
+          <li><a href="{{ url_for('auth.profile') }}">Profile</a></li>
+          <li><a href="{{ url_for('auth.logout') }}">Log Out</a></li>
+          {% else %}
+          <li><a href="{{ url_for('auth.register') }}">Register</a></li>
+          <li>
+            <a href="{{ url_for('auth.login') }}">Log In</a>
+            {% endif %}
+          </li>
+        </ul>
+      </nav>
+      <ul>
+        {% for message in get_flashed_messages() %}
+        <li class="flash">{{ message }}</li>
+
+        {% endfor %}
+      </ul>
+    </header>
+    <section class="content container">
+      {% block content %}{% endblock %}
+    </section>
+  </body>
+</html>

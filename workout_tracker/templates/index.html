@@ -1,0 +1,13 @@
+{% extends 'base.html' %} {% block header %}
+<h1>{% block title %}Welcome{% endblock %}</h1>
+{% endblock %} {% block content %}
+<p>
+  Welcome to the Workout Tracker. You can {% if g.user %}
+  <!-- Log a workout -->
+  <a href="{{ url_for('workouts.create') }}">log a workout</a> or
+  <!-- View your workout history -->
+  <a href="{{ url_for('workouts.index') }}">view your workout history</a>. {%
+  else %} <a href="{{ url_for('auth.register') }}">register</a> or
+  <a href="{{ url_for('auth.login') }}">log in</a>. {% endif %}
+</p>
+{% endblock %}
