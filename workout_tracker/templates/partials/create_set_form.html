@@ -1,0 +1,21 @@
+<form
+  action="{{ url_for('set.create') }}"
+  method="GET"
+>
+  <a href="{{ url_for('exercise.create', redirect_to=request.url) }}"
+    >Create Exercise</a
+  >
+  <label for="exercise_name">Exercise</label>
+  <select
+    name="exercise_name"
+    id="exercise_name"
+  >
+    {% for exercise_name in session["exercise_names"] %}
+    <option value="{{ exercise_name}}">{{ exercise_name }}</option>
+    {% endfor %}
+  </select>
+  <input
+    type="submit"
+    value="Add Sets"
+  />
+</form>

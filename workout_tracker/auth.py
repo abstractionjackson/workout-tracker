@@ -14,7 +14,7 @@ from flask import (
 )
 
 from workout_tracker.database import db_session
-from workout_tracker.models import User
+from workout_tracker.models import Exercise, User
 
 bp = Blueprint("auth", __name__, url_prefix="/auth")
 
@@ -89,6 +89,9 @@ def login():
         if error is None:
             session.clear()
             session["user_id"] = user.id
+            session["exercise_names"] = [
+                exercise.name for exercise in Exercise.query.all()
+            ]
             return redirect(url_for("index"))
 
         flash(error)
@@ -110,14 +113,13 @@ def edit_profile():
     if request.method == "POST":
         error = None
 
-        # Update the user in the db
-        user.first_name = request.form["first_name"]
-        user.last_name = request.form["last_name"]
-        user.date_of_birth = datetime.strptime(
-            request.form["date_of_birth"], "%Y-%m-%d"
-        )
-        user.weight = request.form["weight"]
-        user.height = request.form["height"]
+        # for each user prop, if key in form, update user prop
+        for key in user.__dict__.keys():
+            value = request.form.get(key)
+            if value:
+                if key == "date_of_birth":
+                    value = datetime.strptime(value, "%Y-%m-%d")
+                setattr(user, key, value)
 
         if error is None:
             db_session.commit()

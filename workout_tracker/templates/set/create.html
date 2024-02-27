@@ -1,0 +1,72 @@
+{% extends 'base.html' %} {% block title %}Add Set{% endblock %} {% block
+content %}
+<section>
+  <header>
+    <nav>
+      <ul>
+        <li>
+          <a href="{{ url_for('workout.edit', workout_id=workout_id) }}"
+            >to Editing Workout...</a
+          >
+        </li>
+      </ul>
+    </nav>
+    <h1>Add Set {{ set_order }} for {{ exercise_name }}</h1>
+    <!-- table of the existing sets for the exercise -->
+    <table>
+      <thead>
+        <tr>
+          <th>Set Order</th>
+          <th>Weight</th>
+          <th>Reps</th>
+          <th>Notes</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for set in sets %}
+        <tr>
+          <td>{{ set.order }}</td>
+          <td>{{ set.weight }}</td>
+          <td>{{ set.reps }}</td>
+          <td>{{ set.notes }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </header>
+  <main>
+    <form method="POST">
+      <!-- hidden input for exercise_name -->
+      <input
+        type="hidden"
+        name="exercise_name"
+        value="{{ exercise_name }}"
+      />
+      <!-- inputs for weight, resps, notes -->
+      <label for="weight">Weight:</label>
+      <input
+        type="number"
+        id="weight"
+        name="weight"
+        value="{{ current_weight }}"
+        required
+        autofocus
+      />
+      <label for="reps">Reps:</label>
+      <input
+        type="number"
+        id="reps"
+        name="reps"
+        required
+      />
+      <label for="notes">Notes:</label>
+      <!-- text area for notes -->
+      <textarea
+        id="notes"
+        name="notes"
+      ></textarea>
+      <button type="submit">Add Set</button>
+    </form>
+    {% endblock %}
+  </main>
+</section>

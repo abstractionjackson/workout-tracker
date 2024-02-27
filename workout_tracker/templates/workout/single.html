@@ -1,0 +1,34 @@
+{% extends 'base.html' %} {% block header %}
+<h1>{% block title %}Workout{% endblock %}</h1>
+{% endblock %} {% block content %}
+<section class="container">
+  <header>
+    <nav>
+      <ul>
+        <li>
+          <a href="{{ url_for('workout.index')}}">to Workouts List</a>
+        </li>
+      </ul>
+    </nav>
+    <h2>Workout</h2>
+    <h6>{{ workout.date.strftime("%B %d, %Y") }}</h6>
+    <h6>{{ workout.date.strftime("%I:%M %p") }}</h6>
+  </header>
+  <main>
+    <h3>Exercises</h3>
+    <div>
+      {% for exercise in workout['sets_by_exercise'] %}
+      <h4>{{ exercise }}</h4>
+      <ol>
+        {% for set in workout['sets_by_exercise'][exercise] %}
+        <li>{{ set['reps'] }} reps at {{ set['weight'] }} lbs</li>
+        {% endfor %}
+      </ol>
+      {% endfor %}
+    </div>
+    <a href="{{ url_for('workout.edit', workout_id=workout.id) }}"
+      >Edit Workout</a
+    >
+  </main>
+</section>
+{% endblock %}

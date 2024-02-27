@@ -1,0 +1,11 @@
+{% extends 'base.html' %} {% block header %}
+<h1>{% block title %}Create Workout{% endblock %}</h1>
+{% endblock %} {% block content %}
+<section class="container">
+  <a href="{{ url_for('workout.index') }}">Back to Workout List</a>
+</section>
+<section class="container">
+  <a href="{{ url_for('exercise.create') }}">Create New Exercise</a>
+  {% include 'partials/create_set_form.html' %}
+</section>
+{% endblock %}

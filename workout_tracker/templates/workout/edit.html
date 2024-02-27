@@ -1,0 +1,86 @@
+{% extends "base.html" %} {% block title %}Edit Workout{% endblock %} {% block
+content %}
+<section>
+  <header>
+    <nav>
+      <ul>
+        <li>
+          <a href="{{ url_for('workout.single', workout_id=workout.id) }}"
+            >to Workout</a
+          >
+        </li>
+      </ul>
+    </nav>
+    <h2>Editing Workout...</h2>
+    <h6>{{ workout.date.strftime("%B %d, %Y") }}</h6>
+    <h6>{{ workout.date.strftime("%I:%M %p") }}</h6>
+  </header>
+  <main>
+    <section>
+      <header><h3>Edit Date</h3></header>
+      <main>
+        <form
+          action="{{ url_for('workout.edit', workout_id=workout.id) }}"
+          method="POST"
+        >
+          <label for="date">Date</label>
+          <input
+            type="date"
+            name="date"
+            id="date"
+            value="{{ workout.date.strftime('%Y-%m-%d') }}"
+            autofocus
+          />
+          <label for="time">Time</label>
+          <input
+            type="time"
+            name="time"
+            id="time"
+            value="{{ workout.date.strftime('%H:%M') }}"
+          />
+          <input
+            type="submit"
+            value="Submit"
+          />
+        </form>
+      </main>
+    </section>
+    <section>
+      <header><h3>Add Sets</h3></header>
+      <main>{% include 'partials/create_set_form.html' %}</main>
+    </section>
+    <section>
+      <header>
+        <h3>Edit Sets</h3>
+      </header>
+      <div>
+        {% for exercise in workout["sets_by_exercise"] %}
+        <h4>{{ exercise }}</h4>
+        <ol>
+          {% for set in workout["sets_by_exercise"][exercise] %}
+          <li>
+            <a href="{{ url_for('set.edit', set_id=set.id) }}"
+              >{{ set.reps }} reps at {{ set.weight }} lbs</a
+            >
+          </li>
+          {% endfor %}
+        </ol>
+        {% endfor %}
+      </div>
+    </section>
+    <section>
+      <header>
+        <h3>Delete Workout</h3>
+      </header>
+      <main>
+        <a
+          href="{{ url_for('workout.delete', workout_id=workout.id ) }}"
+          type="button"
+          class="secondary"
+          >Delete Workout</a
+        >
+      </main>
+    </section>
+  </main>
+</section>
+{% endblock %}

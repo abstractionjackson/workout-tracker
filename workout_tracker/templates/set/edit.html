@@ -1,0 +1,54 @@
+{% extends "base.html" %} {% block title %}Edit Set{% endblock %} {% block
+content %}
+<section>
+  <header>
+    <h2>Editing Set...</h2>
+    <nav>
+      <ul>
+        <li>
+          <a href="{{ url_for('workout.edit', workout_id=set.workout_id) }}"
+            >to Edit Workout</a
+          >
+        </li>
+      </ul>
+    </nav>
+  </header>
+  <main>
+    <section>
+      <header>
+        <h3>Data</h3>
+      </header>
+      <form
+        action="{{ url_for('set.edit', set_id=set.id )}}"
+        method="POST"
+      >
+        <label for="reps">Reps</label>
+        <input
+          type="number"
+          name="reps"
+          id="reps"
+          value="{{ set.reps }}"
+        />
+        <label for="weight">Weight</label>
+        <input
+          type="number"
+          name="weight"
+          id="weight"
+          value="{{ set.weight }}"
+        />
+        <label for="notes">Notes</label>
+        <textarea
+          name="notes"
+          id="notes"
+        >
+{{ set.notes }}</textarea
+        >
+        <input
+          type="submit"
+          value="Submit"
+        />
+      </form>
+    </section>
+  </main>
+</section>
+{% endblock %}

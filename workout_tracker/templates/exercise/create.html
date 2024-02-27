@@ -1,0 +1,15 @@
+{% extends 'base.html' %} {% block title %}Create Exercise{% endblock %} {%
+block content %}
+<form
+  method="POST"
+  action="{{ url_for('exercise.create', redirect_to=redirect_to) }}"
+>
+  <label for="exercise_name">Exercise Name:</label>
+  <input
+    type="text"
+    name="exercise_name"
+    id="exercise_name"
+  />
+  <button type="submit">Create Exercise</button>
+</form>
+{% endblock %}

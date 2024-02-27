@@ -10,7 +10,7 @@ class Set(Base):
     id = Column(Integer, primary_key=True)
     order = Column(Integer, nullable=False)
     workout_id = Column(Integer, ForeignKey("workouts.id"))
-    exercise_id = Column(Integer, ForeignKey("exercises.id"))
+    exercise_name = Column(Integer, ForeignKey("exercises.name"))
     reps = Column(Integer, nullable=False)
     weight = Column(Float, nullable=False)
     notes = Column(Text)

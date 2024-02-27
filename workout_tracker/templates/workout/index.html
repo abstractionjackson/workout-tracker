@@ -1,0 +1,53 @@
+{% extends 'base.html' %} {% block header %}
+<h1>{% block title %}Workouts{% endblock %}</h1>
+{% endblock %} {% block content %}
+<section class="container">
+  <a href="{{ url_for('workout.create') }}">Create New Workout</a>
+</section>
+<section class="container">
+  <header>
+    <h2>Workouts</h2>
+  </header>
+  <main>
+    <table>
+      <thead>
+        <tr>
+          <th>Date</th>
+          <th>Time</th>
+          <th>Exercises</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for workout in workouts %}
+        <tr>
+          <td>{{ workout.date.strftime('%B %d, %Y') }}</td>
+          <td>{{ workout.date.strftime('%I:%M %p') }}</td>
+          <td>
+            <ul>
+              {% for exercise in workout.get_exercises() %}
+              <li>
+                <a href="#">{{ exercise.name }}</a>
+              </li>
+              {% endfor %}
+            </ul>
+          </td>
+
+          <td>
+            <a href="{{ url_for('workout.single', workout_id=workout.id) }}"
+              >View</a
+            >
+            <a href="{{ url_for('workout.edit', workout_id=workout.id) }}"
+              >Edit</a
+            >
+            <a href="{{ url_for('workout.delete', workout_id=workout.id) }}"
+              >Delete</a
+            >
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </main>
+</section>
+{% endblock %}

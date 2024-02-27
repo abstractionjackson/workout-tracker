@@ -4,9 +4,9 @@
 <p>
   Welcome to the Workout Tracker. You can {% if g.user %}
   <!-- Log a workout -->
-  <a href="{{ url_for('workouts.create') }}">log a workout</a> or
+  <a href="{{ url_for('workout.create') }}">Log a Workout</a> or
   <!-- View your workout history -->
-  <a href="{{ url_for('workouts.index') }}">view your workout history</a>. {%
+  <a href="{{ url_for('workout.index') }}">View your workout history</a>. {%
   else %} <a href="{{ url_for('auth.register') }}">register</a> or
   <a href="{{ url_for('auth.login') }}">log in</a>. {% endif %}
 </p>
